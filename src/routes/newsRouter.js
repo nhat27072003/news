@@ -5,9 +5,6 @@ const newsRouter = Router();
 
 const newsController = new NewsController();
 
-newsRouter.get('/', newsController.getTop20News)
+newsRouter.get('/search', newsController.searchNews);
 newsRouter.get('/:id', newsController.getNewsDetails);
-newsRouter.post('/add', newsController.createNews);
-newsRouter.delete('/:id', newsController.deleteNews);
-
 export default newsRouter;

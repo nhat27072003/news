@@ -1,17 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container-fluid mt-2 px-5">
+  <div class="row">
+    <!-- Cột 1: Danh mục tin nổi bật -->
+    <div class="col-md-3">
+      <a href="/tin-noi-bat" class="text-decoration-none hover-link">
+        <h4 class="mb-2">Tin Nổi Bật</h4>
+      </a>
+      <% if (featuredNews.length> 0) { %>
+        <% featuredNews.forEach(news=> { %>
+          <div class="card mb-3">
+            <a href="/news/<%= news._id %>" class="text-decoration-none hover-link">
+              <img src="<%= news.image || '/default-image.jpg' %>" class="card-img-top"
+                alt="<%= news.title || 'No Title' %>">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= news.title || 'No Title' %>
+                </h5>
+                <p class="card-text">
+                  <%= news.content?.substring(0, 50) || 'No Content Available' %>...
+                </p>
+              </div>
+            </a>
+          </div>
+          <% }) %>
+            <% } else { %>
+              <p>Không có tin nổi bật để hiển thị.</p>
+              <% } %>
+    </div>
+    <!-- Cột 2: Tin nóng hôm nay -->
+    <div class="col-md-6">
+      <a href="/tin-noi-bat" class="text-decoration-none hover-link">
+        <h4 class="mb-2">Tin Nóng Hôm Nay</h4>
+      </a>
+      <% hotNews.forEach(news=> { %>
+        <div class="card mb-3 cursor-pointer">
+          <a href="/news/<%= news._id %>" class="text-decoration-none hover-link">
+            <img src="<%= news.image %>" class="card-img-top" alt="<%= news.title %>">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= news.title %>
+              </h5>
+              <p class="card-text">
+                <%= news.content.substring(0, 100) %>...
+              </p>
+            </div>
+          </a>
+        </div>
+        <% }) %>
+    </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-    </title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-
-<body>
-    <p>hello world</p>
-    <a href="/news">Xem danh sách bài viết</a>
-</body>
-
-</html>
+    <!-- Cột 3: Tin mới -->
+    <div class="col-md-3">
+      <a href="/tin-moi" class="text-decoration-none hover-link">
+        <h4 class="mb-2">Tin Mới</h4>
+      </a>
+      <ul class="list-group">
+        <% latestNews.forEach(news=> { %>
+          <li class="list-group-item">
+            <a href="/news/<%= news._id %>" class="text-decoration-none hover-link">
+              <%= news.title %>
+            </a>
+          </li>
+          <% }) %>
+      </ul>
+    </div>
+  </div>
+</div>

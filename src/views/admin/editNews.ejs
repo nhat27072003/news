@@ -1,0 +1,48 @@
+<%- include('./partials/header') %>
+  <div class="d-flex">
+    <%- include('./partials/sidebar') %>
+      <div class="container mt-1">
+        <h2>Chỉnh Sửa Bài Viết</h2>
+        <form action="/admin/news/edit/<%= news._id %>" method="POST" enctype="multipart/form-data" class="mt-4">
+          <div class="mb-3">
+            <label for="title" class="form-label">Tiêu Đề</label>
+            <!-- Điền giá trị tiêu đề vào input -->
+            <input type="text" class="form-control" id="title" name="title" value="<%= news.title %>"
+              placeholder="Nhập tiêu đề bài viết" required>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Danh Mục</label>
+            <select class="form-select" id="category" name="category" required>
+              <option value="" disabled>Chọn danh mục</option>
+              <option value="cong-nghe" <%=news.category==='cong-nghe' ? 'selected' : '' %>>Công Nghệ</option>
+              <option value="kinh-doanh" <%=news.category==='kinh-doanh' ? 'selected' : '' %>>Kinh doanh</option>
+              <option value="the-thao" <%=news.category==='the-thao' ? 'selected' : '' %>>Thể thao</option>
+              <option value="doi-song" <%=news.category==='doi-song' ? 'selected' : '' %>>Đời sống</option>
+              <option value="giai-tri" <%=news.category==='giai-tri' ? 'selected' : '' %>>Giải trí</option>
+              <option value="tin-nong" <%=news.category==='tin-nong' ? 'selected' : '' %>>Tin Nóng</option>
+              <option value="tin-noi-bat" <%=news.category==='tin-noi-bat' ? 'selected' : '' %>>Tin nổi bật</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Nội Dung</label>
+            <!-- Điền nội dung vào textarea -->
+            <textarea class="form-control" id="content" name="content" rows="5" placeholder="Nhập nội dung bài viết"
+              required><%= news.content %></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Hình Ảnh</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            <% if (news.image) { %>
+              <div class="mt-2">
+                <img src="/uploads/<%= news.image %>" alt="Image" style="max-width: 200px;">
+              </div>
+              <% } %>
+          </div>
+          <button type="submit" class="btn btn-success">Cập Nhật Bài Viết</button>
+          <a href="/admin/news" class="btn btn-secondary">Hủy</a>
+        </form>
+      </div>
+  </div>
+  </body>
+
+  </html>

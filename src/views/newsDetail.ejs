@@ -1,25 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container mt-4">
+  <div class="row">
+    <!-- Cột bên trái: Bài viết chi tiết -->
+    <div class="col-lg-8">
+      <div class="post">
+        <h2 class="mb-3">
+          <%= news.title %>
+        </h2>
+        <p class="text-muted">
+          <%= new Date(news.dateCreated).toLocaleDateString() %> |
+            Danh mục: <%= news.category %>
+        </p>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    <%= title %>
-  </title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
+        <!-- Ảnh bài viết -->
+        <div class="post-image mb-3">
+          <img src="<%= news.image %>" class="img-fluid" alt="Bài viết ảnh">
+        </div>
 
-<body>
-  <h1>
-    <%= article.title %>
-  </h1>
-  <p>Tác giả: <%= article.author %>
-  </p>
-  <p>
-    <%= article.content %>
-  </p>
-  <a href="/articles">Quay lại danh sách</a>
-</body>
+        <div class="post-content">
+          <% let paragraphs=news.content.split('\r\n'); paragraphs.forEach((para)=> {
+            %>
+            <p>
+              <%= para.trim() %>
+            </p>
+            <% }); %>
 
-</html>
+        </div>
+      </div>
+
+      <!-- Phần bình luận -->
+      <div class="comments mt-5">
+        <h4>Bình luận</h4>
+        <% if (news.comments && news.comments.length> 0) { %>
+          <ul class="list-unstyled">
+            <% news.comments.forEach(comment=> { %>
+              <li class="media mb-2 d-flex align-items-center border-bottom">
+                <i class="bi bi-person-circle" style="font-size: 54px; color: #6c757d;"></i>
+                <div class="media-body mx-1 w-100">
+                  <div class="d-flex justify-content-between ">
+                    <!-- Tên người bình luận -->
+                    <h6 class="mt-0 mb-1">
+                      <%= comment.userName %>
+                    </h6>
+                    <!-- Ngày bình luận -->
+                    <small class="text-muted">
+                      <%= new Date(comment.createAt).toLocaleDateString() %>
+                    </small>
+                  </div>
+                  <!-- Nội dung bình luận -->
+                  <p>
+                    <%= comment.comment %>
+                  </p>
+                </div>
+              </li>
+              <% }) %>
+          </ul>
+          <% } else { %>
+            <p>Chưa có bình luận nào.</p>
+            <% } %>
+
+              <!-- Form bình luận mới -->
+              <h5>Thêm bình luận</h5>
+              <form action="/comment/add" method="POST">
+                <div class="form-group">
+                  <input type="hidden" name="newsId" value="<%= news._id %>">
+                  <label for="comment">Bình luận:</label>
+                  <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary my-3">Gửi Bình Luận</button>
+              </form>
+      </div>
+    </div>
+
+    <!-- Cột bên phải: Bài viết liên quan hoặc Tin nóng -->
+    <div class="col-lg-4">
+      <div class="related-posts">
+        <h4>Tin liên quan</h4>
+        <% relatedPosts.forEach(news=> { %>
+          <div class="card mb-3">
+            <img src="<%= news.image %>" class="card-img-top" alt="<%= news.title %>">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="/news/<%= news._id %>" class="text-decoration-none hover-link">
+                  <%= news.title %>
+                </a>
+              </h5>
+              <p class="card-text">
+                <%= news.content.substring(0, 100) %>...
+              </p>
+            </div>
+          </div>
+          <% }) %>
+            <!-- Tin nóng -->
+
+      </div>
+    </div>
+  </div>

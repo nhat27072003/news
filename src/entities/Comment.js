@@ -1,15 +1,23 @@
-class Comment {
+import mongoose from "mongoose";
 
-  #id;
-  #content;
-  #author;
-
-  saveComment() {
-
+const commentSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    require: true
+  },
+  userName: {
+    type: String,
+    require: true
+  },
+  comment: {
+    type: String,
+    require: true
+  },
+  createAt: {
+    type: Date,
+    default: Date.now
   }
-  getCommentDetails() {
+});
 
-  }
-}
 
-export default Comment;
+export default commentSchema;

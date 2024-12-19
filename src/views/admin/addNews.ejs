@@ -1,0 +1,41 @@
+<%- include('./partials/header') %>
+  <div class="d-flex">
+    <%- include('./partials/sidebar') %>
+      <div class="container mt-1">
+        <h2>Thêm Bài Viết Mới</h2>
+        <form action="/admin/news/add" method="POST" enctype="multipart/form-data" class="mt-4">
+          <div class="mb-3">
+            <label for="title" class="form-label">Tiêu Đề</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Nhập tiêu đề bài viết"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Danh Mục</label>
+            <select class="form-select" id="category" name="category" required>
+              <option value="" selected disabled>Chọn danh mục</option>
+              <option value="cong-nghe">Công Nghệ</option>
+              <option value="kinh-doanh">Kinh doanh</option>
+              <option value="the-thao">thể thao</option>
+              <option value="doi-song">Đời sống</option>
+              <option value="giai-tri">Giải Trí</option>
+              <option value="tin-nong">Tin Nóng</option>
+              <option value="tin-noi-bat">Tin nổi bật</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Nội Dung</label>
+            <textarea class="form-control" id="content" name="content" rows="5" placeholder="Nhập nội dung bài viết"
+              required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Hình Ảnh</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+          </div>
+          <button type="submit" class="btn btn-success">Lưu Bài Viết</button>
+          <a href="/admin/news" class="btn btn-secondary">Hủy</a>
+        </form>
+      </div>
+  </div>
+  </body>
+
+  </html>

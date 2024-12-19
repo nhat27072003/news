@@ -1,0 +1,32 @@
+<div class="container d-flex align-items-center justify-content-center" style="height: 92vh;">
+  <div class="row mx-auto shadow-lg p-4"
+    style="width: 500px; background-color: aliceblue; border: 2px solid #b5cee9; border-radius: 15px;">
+    <div class="col">
+      <h3 class="text-center mb-4">Đăng Ký</h3>
+      <form action="/signup" method="POST">
+        <div class="mb-2">
+          <label for="username" class="form-label">User name:</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Nhập user name" required>
+        </div>
+        <div class="mb-2">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" required>
+        </div>
+        <div class="mb-2">
+          <label for="password" class="form-label">Mật khẩu:</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu"
+            required>
+        </div>
+        <div class="mb-2">
+          <label for="confirmPassword" class="form-label">Xác nhận mật khẩu:</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+            placeholder="Nhập lại mật khẩu" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Đăng Ký</button>
+      </form>
+      <p class="text-center mt-3">
+        Đã có tài khoản? <a href="/login">Đăng Nhập</a>
+      </p>
+    </div>
+  </div>
+</div>

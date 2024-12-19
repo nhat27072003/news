@@ -1,0 +1,27 @@
+<div class="container mt-2">
+  <h6>Kết quả tìm kiếm cho: "<%= query %>"</h6>
+  <% if (results.length===0) { %>
+    <p>Không tìm thấy bài viết nào phù hợp.</p>
+    <% } else { %>
+      <div class="row">
+        <% results.forEach(news=> { %>
+          <div class="col-md-3 mb-4">
+            <div class="card shadow-sm border-light">
+              <a href="/news/<%= news._id %>" class="text-decoration-none hover-link">
+                <img src="<%= news.image %>" class="card-img-top" alt="<%= news.title %>"
+                  style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                  <h6 class="card-title" style="font-size: 1.25rem; color: #007bff;">
+                    <%= news.title %>
+                  </h6>
+                  <p class="card-text text-muted">
+                    <%= news.content.substring(0, 100) %>...
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+      <% } %>
+</div>

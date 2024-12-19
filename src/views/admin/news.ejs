@@ -1,0 +1,122 @@
+<%- include('./partials/header') %>
+  <div class="d-flex">
+    <%- include('./partials/sidebar') %>
+      <div class="container mt-1">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Quản lý Bài Viết</h2>
+          <a href="/admin/news/add">
+            <button class="btn btn-success">Thêm Bài Viết</button>
+          </a>
+        </div>
+
+        <!-- Thêm thanh tìm kiếm và lọc -->
+        <form id="filterForm" class="d-flex mb-3">
+          <!-- Dropdown lọc theo danh mục -->
+          <select id="categoryFilter" class="form-control me-2" style="width: 200px;">
+            <option value="">Tất cả danh mục</option>
+            <option value="kinh-doanh">Kinh doanh</option>
+            <option value="the-thao">Thể thao</option>
+            <option value="doi-song">Đời sống</option>
+            <option value="giai-tri">Giải trí</option>
+            <option value="tin-noi-bat">Tin nổi bật</option>
+            <option value="tin-nong">Tin nóng</option>
+          </select>
+
+          <!-- Dropdown sắp xếp theo ngày -->
+          <select id="sortFilter" class="form-control ms-2" style="width: 200px;">
+            <option value="desc">Mới nhất</option>
+            <option value="asc">Cũ nhất</option>
+          </select>
+
+          <button type="button" class="btn btn-primary ms-2" onclick="applyFilters()">Lọc</button>
+        </form>
+
+        <div class="table-responsive">
+          <table id="newsTable" class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="w-50">Tiêu Đề</th>
+                <th>Danh Mục</th>
+                <th>Ngày Đăng</th>
+                <th>Chức Năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (newsList && newsList.length> 0) { %>
+                <% newsList.forEach(news=> { %>
+                  <tr data-category="<%= news.category %>" data-date="<%= news.dateCreated %>">
+                    <td>
+                      <%= news.title %>
+                    </td>
+                    <td>
+                      <%= news.category %>
+                    </td>
+                    <td>
+                      <%= new Date(news.dateCreated).toLocaleDateString() %>
+                    </td>
+                    <td>
+                      <a href="/admin/news/edit/<%= news._id %>">
+                        <button class="btn btn-primary btn-sm">Sửa</button>
+                      </a>
+                      <form action="/admin/news/delete/<%= news._id %>" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% }) %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="4" class="text-center">Không có bài viết nào.</td>
+                      </tr>
+                      <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+  <script>
+    // Hàm lọc và sắp xếp bài viết
+    function applyFilters() {
+      // Lấy giá trị lọc và sắp xếp
+      const categoryFilter = document.getElementById('categoryFilter').value;
+      const sortFilter = document.getElementById('sortFilter').value;
+
+      const rows = document.querySelectorAll('#newsTable tbody tr');
+
+      // Lọc theo danh mục
+      rows.forEach(row => {
+        const category = row.getAttribute('data-category');
+        const date = row.getAttribute('data-date');
+
+        // Ẩn những hàng không phù hợp với lọc danh mục
+        if (categoryFilter && category !== categoryFilter) {
+          row.style.display = 'none';
+        } else {
+          row.style.display = '';
+        }
+      });
+
+      // Sắp xếp theo ngày
+      const sortedRows = Array.from(rows);
+      sortedRows.sort((a, b) => {
+        const dateA = new Date(a.getAttribute('data-date'));
+        const dateB = new Date(b.getAttribute('data-date'));
+
+        if (sortFilter === 'asc') {
+          return dateA - dateB; // Cũ nhất lên đầu
+        } else {
+          return dateB - dateA; // Mới nhất lên đầu
+        }
+      });
+
+      // Cập nhật lại thứ tự trong bảng
+      const tbody = document.querySelector('#newsTable tbody');
+      sortedRows.forEach(row => {
+        tbody.appendChild(row);
+      });
+    }
+
+  </script>
+  </body>
+
+  </html>

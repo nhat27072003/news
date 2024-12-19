@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <!-- Logo -->
+    <a class="navbar-brand" href="/">
+      <img src="http://localhost:3000/icon/favicon.ico" alt="news">
+    </a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Items + Tìm kiếm + Login -->
+    <div class="collapse navbar-collapse d-flex justify-content-between align-items-center" id="navbarNav">
+      <!-- Danh sách các mục menu -->
+      <ul class="navbar-nav">
+        <li class="nav-item <%= currentPage === 'kinh-doanh' ? 'active' : '' %>">
+          <a class="nav-link" href="/kinh-doanh">Kinh doanh</a>
+        </li>
+        <li class="nav-item <%= currentPage === 'the-thao' ? 'active' : '' %>">
+          <a class="nav-link" href="/the-thao">Thể thao</a>
+        </li>
+        <li class="nav-item <%= currentPage === 'doi-song' ? 'active' : '' %>">
+          <a class="nav-link" href="/doi-song">Đời sống</a>
+        </li>
+        <li class="nav-item <%= currentPage === 'giai-tri' ? 'active' : '' %>">
+          <a class="nav-link" href="/giai-tri">Giải trí</a>
+        </li>
+      </ul>
+
+      <!-- Thanh tìm kiếm -->
+      <form class="d-flex mx-3" action="/news/search" method="GET" role="search">
+        <input class="form-control me-2" name="q" type="search" placeholder="Tìm kiếm bài viết" aria-label="Search"
+          style="width: 300px;">
+        <button class="btn btn-outline-success" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+
+      <!-- Nút Login -->
+      <% if (!isLoggedIn) { %>
+        <a href="/login">
+          <button class="btn btn-primary">Login</button>
+        </a>
+        <% } else { %>
+          <div class="d-flex align-items-center">
+            <!-- Hiển thị tên người dùng -->
+            <span class="me-3">Xin chào, <%= username %>!</span>
+            <!-- Nút Logout -->
+            <a href="/logout">
+              <button class="btn btn-danger">Logout</button>
+            </a>
+          </div>
+          <% } %>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,53 @@
+<%- include('./partials/header') %>
+  <div class="d-flex">
+    <%- include('./partials/sidebar') %>
+      <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Thêm Người Dùng</h2>
+          <a href="/admin/user">
+            <button class="btn btn-secondary">Quay Lại</button>
+          </a>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <form action="/admin/user/add" method="POST">
+              <!-- Tên người dùng -->
+              <div class="mb-3">
+                <label for="username" class="form-label">Tên Người Dùng</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên người dùng"
+                  required>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" required>
+              </div>
+
+              <!-- Vai trò -->
+              <div class="mb-3">
+                <label for="role" class="form-label">Vai Trò</label>
+                <select id="role" name="role" class="form-select" required>
+                  <option value="admin">Quản Trị</option>
+                  <option value="user">Người Đọc</option>
+                </select>
+              </div>
+
+              <!-- Mật khẩu -->
+              <div class="mb-3">
+                <label for="password" class="form-label">Mật Khẩu</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu"
+                  required>
+              </div>
+
+              <!-- Nút Thêm -->
+              <button type="submit" class="btn btn-success">Thêm Người Dùng</button>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+  </body>
+
+  </html>
